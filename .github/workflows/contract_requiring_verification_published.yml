@@ -44,5 +44,5 @@ jobs:
       - name: Test and verify
         run: |
           chmod +x ./run_pytest.sh
-          ./run_pytest.sh --broker-token $PACT_BROKER_TOKEN --broker-url $PACT_BROKER_BASE_URL --publisher-version $GIT_COMMIT --publish-verification True
+          ./run_pytest.sh --broker-token $PACT_BROKER_TOKEN --broker-url $PACT_BROKER_BASE_URL --publish-verification True
         shell: bash

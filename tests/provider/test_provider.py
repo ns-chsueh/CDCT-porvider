@@ -14,11 +14,14 @@ def broker_opts(request):
     broker_token = request.config.getoption("--broker-token")
     broker_url = request.config.getoption("--broker-url")
     publisher_version = request.config.getoption("--publisher-version")
+    provider_version_branch = request.config.getoption("--branch")
     published = request.config.getoption("--publish-verification")
+    
     return {
         "broker_token": broker_token,
         "broker_url": broker_url,
         "publish_version": publisher_version,
+        "provider_version_branch": provider_version_branch,
         "publish_verification_results": published,
     }
 

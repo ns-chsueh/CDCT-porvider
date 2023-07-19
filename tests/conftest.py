@@ -3,6 +3,9 @@ from distutils.util import strtobool
 
 def pytest_addoption(parser):
     parser.addoption(
+        "--branch", type=str, action="store", 
+        help="Git branch")
+    parser.addoption(
         "--broker-token", type=str, action="store", 
         help="The broker token to read/write broker"
     )
