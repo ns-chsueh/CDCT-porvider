@@ -1,0 +1,32 @@
+name: Build
+
+#  This workflow is the Provider's CI build that will run on every commit for the provider codebase
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  PACT_BROKER_BASE_URL: https://netskopebroker.pactflow.io
+  PACT_BROKER_TOKEN: ${{ secrets.PACTFLOW_TOKEN_FOR_CI_CD_WORKSHOP }}
+  GIT_COMMIT: ${{ github.sha }}
+  GITHUB_REF: ${{ github.ref }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Test and verify
+        run: |
+          chmod +x ./run_pytest.sh
+          ./run_pytest.sh --broker-token $PACT_BROKER_TOKEN --broker-url $PACT_BROKER_BASE_URL --publisher-version $GIT_COMMIT --publish-verification True
+        shell: bash
