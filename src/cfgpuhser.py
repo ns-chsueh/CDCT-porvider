@@ -12,8 +12,9 @@ def read_file(file_path: str):
 
 @app.route("/file/<path:file_path>", methods=["DELETE"])
 def delete_file(file_path: str):
-    if file_path in fakenfs:
-        del fakenfs[file_path]
+    if file_path not in fakenfs:
+        return jsonify({"message": f"[Reason]: File /opt/ns/configshare/dp/{file_path} doesn't exist."}), 404
+    del fakenfs[file_path]
     return jsonify({"status": "OK"})
 
 

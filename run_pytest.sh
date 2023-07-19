@@ -3,6 +3,8 @@ set -o pipefail
 
 GIT_COMMIT=$(git rev-parse HEAD)
 GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo git commit: $GIT_COMMIT
+echo git branch: $GIT_BRANCH
 
 # Run the Flask server, using the pact_provider.py as the app to be able to
 # inject the provider_states endpoint
