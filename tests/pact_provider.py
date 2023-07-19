@@ -5,12 +5,10 @@ from src.cfgpuhser import app, fakenfs
 
 @app.route("/_pact/provider_states", methods=["POST"])
 def provider_states():
-    mapping = {
-        "Cfgpusher returns file content": setup_file_content,
-        "Cfgpusher delete file": setup_file_content,
-        "Cfgpusher returns file not found": setup_file_not_exist,
-    }
-    mapping[request.json["state"]]()
+    if "file not found" in request.json["state"]:
+        setup_file_not_exist()
+    else:
+        setup_file_content()
     return jsonify({"result": request.json["state"]})
 
 
